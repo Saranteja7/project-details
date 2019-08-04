@@ -1,0 +1,5 @@
+const LOADED_PRODUCTS = 'LOADED_PRODUCTS';
+
+export {
+    LOADED_PRODUCTS
+}

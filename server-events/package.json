@@ -1,0 +1,15 @@
+{
+    "name": "events-server",
+    "version": "1.0.0",
+    "description": "json-server based server to serve details of event for the events app",
+    "main": "index.js",
+    "scripts": {
+        "noauth": "node server-not-authenticated.js",
+        "auth": "node server-authenticated.js"
+    },
+    "author": "Prashanth Puranik",
+    "license": "ISC",
+    "dependencies": {
+        "json-server": "^0.12.1"
+    }
+}

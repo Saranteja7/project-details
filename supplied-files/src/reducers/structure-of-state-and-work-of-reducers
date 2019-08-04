@@ -1,0 +1,30 @@
+{
+    products: { // productsReducer takes care of the products
+        1 : { name: 'Lawn Mower', id: 1, reviews: [ 1, 2, 5 ] },
+        2 : { name: 'Hammer', id: 2 },
+        3 : { ... },
+        ...
+    },
+    reviews: { // reviewsReducer takes care of reviews
+        1: {
+            id: 1,
+            productId: 1,
+            reviewer: 'John'
+        },
+        2: {
+            id: 2,
+            productId: 1,
+            reviewer: 'John'
+        },
+        3: {
+            id: 3,
+            productId: 4,
+            reviewer: 'John'
+        },
+        5: {
+            id: 5,
+            productId: 1,
+            reviewer: 'John'
+        }
+    }
+}
