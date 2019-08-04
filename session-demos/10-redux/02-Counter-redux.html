@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        Counter: <span id="counter"></span>
+        <button onclick="increment(); render();">+</button>
+        <button onclick="decrement(); render();">-</button>
+    </body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.min.js"></script>
+
+    <script>
+        console.log( Redux );
+
+        // action constants
+        const INCREMENT = 'INCREMENT';
+        const DECREMENT = 'DECREMENT';
+
+        // action creators (they return actions, i.e objects with type property set to action that occured in the app)
+        const incrementAC = () => {
+            return {
+                type: INCREMENT
+            };
+        };
+          
+        // the () around {} is necessary to tell the compiler we are returning an object
+        const decrementAC = () => ({
+            type: DECREMENT
+        });
+
+        // define reducer(s)
+        const counterReducer = ( curState = { count : 0 }, action ) => {
+            let newState;
+
+            switch( action.type ) {
+                case INCREMENT:
+                    newState = {
+                        count: curState.count + 1
+                    };
+                    break;
+                case DECREMENT:
+                    newState = {
+                        count: curState.count - 1
+                    };
+                    break;
+                default: // unsupported action - hence return curState as such
+                    newState = curState;
+            }
+
+            return newState;
+        }
+
+        const store = Redux.createStore(
+            counterReducer
+        );
+
+        function render() {
+            document.getElementById( 'counter' ).innerHTML = store.getState().count;
+        }
+
+        render();
+
+        store.subscribe( render ); // have render called when store changes state
+
+        const increment = () => store.dispatch( incrementAC() );
+        const decrement = () => store.dispatch( decrementAC() );
+    </script>
+</html>

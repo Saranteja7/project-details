@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.3.0/redux-thunk.js"></script>
+        
+        <script type="text/babel">
+            const LOADING = 'LOADING';
+            const LOADED = 'LOADED';
+            const ERROR = 'ERROR';
+
+            // action creators
+            const loadingAC = () => {
+                return {
+                    type: LOADING
+                };
+            };
+
+            const loadedAC = ( questions ) => {
+                return {
+                    type: LOADED,
+                    payload: {
+                        questions: questions
+                    }
+                };
+            };
+            
+            const errorAC = ( error ) => {
+                return {
+                    type: ERROR,
+                    payload: {
+                        error: error
+                    }
+                };
+            };
+
+            // actal loading action dispatch and side-effect logic are now moved to a "thunk"
+            const fetchProductsThunk = ( dispatch ) => {
+                dispatch( loadingAC() );
+
+                return axios.get( 'https://api.stackexchange.com/2.0/questions?site=stackoverflow' )
+                    .then( response => response.data )
+                    .then( data => data.items )
+                    .then(( questions ) => {
+                        dispatch( loadedAC( questions ) );
+                    })
+                    .catch(( error ) => {
+                        dispatch( errorAC( error ) );
+                    });
+            };
+
+            const questionsReducer = ( curState = { status: '', questions: [], error: null }, action ) => {
+                let newState;
+
+                switch( action.type ) {
+                    case LOADING:
+                        newState = {
+                            ...curState,
+                            status: LOADING
+                        };
+                        break;
+                    case LOADED:
+                        newState = {
+                            ...curState,
+                            questions: action.payload.questions,
+                            status: LOADED
+                        };
+                        break;
+                    case ERROR:
+                        newState = {
+                            ...curState,
+                            status: ERROR,
+                            error: action.payload.error
+                        };
+                        break;
+                    default:
+                        newState = curState;
+                }
+
+                console.log( 'newState = ', newState );
+                return newState;
+            }
+
+            const store = Redux.createStore(
+                questionsReducer,
+                Redux.applyMiddleware( ReduxThunk.default )
+            );
+
+            class QuestionsList extends React.Component {
+                render() {
+                    let el;
+
+                    console.log( 'render::', this.props.status );
+                    switch( this.props.status ) {
+                        case LOADING:
+                            el = (
+                                <div className="alert alert-info">
+                                    Questions are being fetched. Hang in there!
+                                </div>
+                            );
+                            break;
+                        case LOADED:
+                            el = (
+                                <ul>
+                                    {
+                                        this.props.questions.map(
+                                            item => (
+                                                <li key={item.question_id}>
+                                                    {item.title}
+                                                </li>
+                                            )
+                                        )
+                                    }
+                                </ul>
+                            );
+                            break;
+                        case ERROR:
+                            el = (
+                                <div className="alert alert-info">
+                                    {this.props.error.message}
+                                </div>
+                            );
+                            break;
+                        default:
+                            el = (
+                                <div className="alert alert-info">
+                                    Something unexpected happened...
+                                </div>
+                            );
+                    }
+
+                    return (
+                        <div className="container">
+                            <h1>Questions from StackOverflow</h1>
+                            <hr />
+                            {el}
+                        </div>
+                    )
+                }
+
+                componentDidMount() {
+                    this.props.fetchQuestions();
+                }
+            }
+
+            class QuestionsListContainer extends React.Component {
+                fetchQuestions() {
+                    store.dispatch( fetchProductsThunk );
+                }
+
+                componentDidMount() {
+                    store.subscribe( this.forceUpdate.bind( this ) );
+                }
+
+                render() {
+                    const state = store.getState();
+                    return (
+                        <QuestionsList
+                            questions={state.questions}
+                            error={state.error}
+                            status={state.status}
+                            fetchQuestions={this.fetchQuestions} />
+                    )
+                }
+            }
+
+            ReactDOM.render( <QuestionsListContainer />, document.getElementById( 'root' ) );
+        </script>
+    </body>
+</html>

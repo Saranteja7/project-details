@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.development.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        
+        <script type="text/babel">
+            class Panel extends React.Component {
+                state = {
+                    isOpen: true
+                };
+
+                toggleState = () => {
+                    this.setState({
+                        isOpen: !this.state.isOpen
+                    });
+                }
+
+                render() {
+                    return (
+                        <div className="panel panel-primary">
+                            <div className="panel-heading" onClick={this.toggleState}>
+                                {this.props.heading}
+                            </div>
+                            {
+                                this.state.isOpen && 
+                                <div className="panel-body">
+                                    {this.props.children}
+                                </div>
+                            }
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render( 
+                <Panel heading="Collapsible Group Item #1">
+                    <p>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </p>
+                    <p>lorem</p>
+                </Panel>,
+                document.getElementById( 'root' ) );
+        </script>
+    </body>
+</html>

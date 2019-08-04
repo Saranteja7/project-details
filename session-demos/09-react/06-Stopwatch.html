@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.development.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        
+        <script type="text/babel">
+            /**
+             * Create a Stopwatch component with 3 buttons - Start, Stop and Reset
+             * It displays the seconds passed.
+             * Clicking Start starts ticking the time and the component shows the number of seconds passed.
+             * Clicking Stop freezes the seconds passed. Clicking Start again resumes ticking of the Stopwatch.
+             * Clicking Reset stops the stopwatch and resets seconds passed to 0.
+             */
+            class Stopwatch extends React.Component {
+                state = {
+                    secondsElapsed: 0,
+                    isRunning: false
+                };
+
+                constructor( props ) {
+                    super( props );
+
+                    // this.start = this.start.bind( this );
+                }
+
+                start = () => {
+                    if( !this.state.isRunning ) {
+                        this.id = setInterval(() => {
+                            this.setState({
+                                secondsElapsed: this.state.secondsElapsed + 1
+                            });
+                        }, 1000);
+                        
+                        this.setState({
+                            isRunning: true
+                        });
+                    }
+                }
+
+                stop = () => {
+                    clearInterval( this.id );
+
+                    this.setState({
+                        isRunning: false
+                    });
+                }
+
+                reset = () => {
+                    this.stop();
+                    this.setState({
+                        secondsElapsed: 0
+                    });
+                }
+
+                render() {
+                    return (
+                        <React.Fragment>
+                            <div className="container">
+                                Seconds elapsed: {this.state.secondsElapsed}
+                                <br />
+                                <button className="btn btn-sm btn-primary" onClick={this.start}>Start</button>
+                                {' '}
+                                <button className="btn btn-sm btn-danger" onClick={this.stop}>Stop</button>
+                                {' '}
+                                <button className="btn btn-sm btn-dark" onClick={this.reset}>Reset</button>
+                            </div>
+                        </React.Fragment>
+                    );
+                }
+            }
+
+            ReactDOM.render( <Stopwatch />, document.getElementById( 'root' ) );
+        </script>
+    </body>
+</html>

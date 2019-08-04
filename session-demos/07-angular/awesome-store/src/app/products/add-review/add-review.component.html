@@ -1,0 +1,36 @@
+<h2>Add a review</h2>
+<hr />
+<form (ngSubmit)="postReview( $event )"> <!-- (event)="js code to execute"-->
+    <div class="form-group">
+        <label for="name">Your name</label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="" aria-describedby="helpName" [(ngModel)]="review.reviewer" />
+        <small id="helpName" class="text-muted">Your name goes in here</small>
+    </div>
+    <div class="form-group">
+        <label for="starRating">Rating</label>
+        <select name="name" id="name" class="form-control" aria-describedby="helpStarRating" [(ngModel)]="review.starRating">
+            <option value="">-- Select rating --</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        <small id="helpStarRating" class="text-muted">Your rating (1 - lowest, 5 - highest)</small>
+    </div>
+    <div class="form-group">
+        <label for="title">Title for your review</label>
+        <input type="text" name="title" id="title" class="form-control" placeholder="" aria-describedby="helpTitle" [(ngModel)]="review.title" />
+        <small id="helpTitle" class="text-muted">A short description for your review</small>
+    </div>
+    <div class="form-group">
+        <label for="review">Your review</label>
+        <textarea name="review" id="review" class="form-control" placeholder="" aria-describedby="helpReview" [(ngModel)]="review.text"></textarea>
+        <small id="helpReview" class="text-muted">
+            Your review for the product goes in here...
+        </small>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Post review" class="btn btn-primary" />
+    </div>
+</form>

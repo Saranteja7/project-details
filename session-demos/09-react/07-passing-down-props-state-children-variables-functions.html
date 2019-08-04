@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.development.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        
+        <script type="text/babel">
+            class P extends React.Component {
+                state = {
+                    s: 100
+                }
+
+                fn() {
+                    console.log( 'mthid of P class');
+                }
+
+                render() {
+                    return (
+                        <div className="container my-4">
+                            Inside P x = {this.props.x}
+                            Inside P s = {this.state.s}
+                            {this.props.children}
+                            <C x={this.props.x} s={this.state.s} fn={this.fn}>
+                                {this.props.children}
+                            </C>
+                        </div>
+                    );
+                }
+            }
+
+            class C extends React.Component {
+                render() {
+                    return (
+                        <div className="container my-4" onClick={this.props.fn}>
+                            Inside C x = {this.props.x}
+                            Inside C s = {this.props.s}
+                            {this.props.children}
+                        </div>
+                    );
+                }
+            }
+
+            ReactDOM.render(
+                <P x={1}>
+                    <span>I am a span 1</span>
+                    <span>I am a span 2</span>
+                    <span>I am a span 3</span>
+                </P>,
+                document.getElementById( 'root' )
+            );
+        </script>
+    </body>
+</html>

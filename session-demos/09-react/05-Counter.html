@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.development.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        
+        <script type="text/babel">
+            class Counter extends React.Component {
+                constructor( props ) {
+                    super( props ); // this.props = props;
+
+                    this.state = {
+                        count: this.props.initialValue
+                    };
+                }
+
+                increment = () => {
+                    // alert( 'button clicked' );
+                    console.log( 'context of increment call is ', this );
+
+                    // foo( x + 1 ); // foo( 2 )
+
+                    // this.setState({ // { count: 1 }
+                    //     count: this.state.count + 1
+                    // });
+                    // this.setState({ // { count: 1 }
+                    //     count: this.state.count + 1
+                    // });
+                    // this.setState({ // { count : 1 }
+                    //     count: this.state.count + 1
+                    // });
+                    // console.log( this.state.count );
+
+
+                    // option #1 to handle problem of setState
+                    // this.setState(
+                    //     {
+                    //         count: this.state.count + 1
+                    //     },
+                    //     () => { // callback after processing setState request
+                    //         this.setState(
+                    //             {
+                    //                 count: this.state.count + 1
+                    //             },
+                    //             () => {
+                    //                 this.setState({
+                    //                     count: this.state.count + 1
+                    //                 });
+                    //             }
+                    //         );
+                    //     }
+                    // )
+
+                    this.setState(
+                        () => {
+                            return { // { count : 1 }
+                                count: this.state.count + 1
+                            };
+                        }
+                    );
+                    this.setState(
+                        function( curState ) { // { count : 2 }
+                            return {
+                                count: curState.count + 1
+                            };
+                        }
+                    );
+                    this.setState(
+                        () => { // { count : 3 }
+                            return {
+                                count: this.state.count + 1
+                            };
+                        }
+                    );
+                }
+
+                render() {
+                    return (
+                        <div className="container">
+                            Count: {this.state.count}
+                            <button className="btn btn-primary btn-sm" onClick={this.increment}>+</button>
+                            <button className="btn btn-danger btn-sm">-</button>
+                        </div>
+                    )
+                }
+            }
+            ReactDOM.render( <Counter initialValue={0} />, document.getElementById( 'root' ) );
+        </script>
+    </body>
+</html>

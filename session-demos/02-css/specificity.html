@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+            /*
+            #para-1 {
+                color: olive;
+            }
+
+            .para {
+                color: crimson;
+            }
+
+            p {
+                color: blue;
+            }
+            */
+            /* id selector more specific than class selector */
+            /* class selector more specific than type selector */
+
+            /* ( 0, 0, 1, 2 ) */
+            body p.para {
+                color: olive;
+            }
+
+            /* ( 0, 0, 1, 1 ) */
+            body .para {
+                color: crimson;
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <p class="para" id="para-1">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem minus ipsa odio repellendus rem, quis voluptatum quos ipsam natus eligendi quia fugit placeat. Perspiciatis, totam quod quo quidem soluta exercitationem?
+        </p>
+
+        <p class="para">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt esse, eum, numquam quos quibusdam veniam consectetur cum, quia quo minima perferendis cumque quod maxime qui beatae. Eius ratione reiciendis sit?
+        </p>
+    </body>
+</html>

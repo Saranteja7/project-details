@@ -1,0 +1,15 @@
+p {
+    color: crimson;
+}
+
+div > p {
+    color: olive;
+}
+
+section p { /* para that is a descendant of a section */
+    color: purple;
+}
+
+div p.blue { /* no spaces between p and .blue (p.blue) - selects para that has class blue */
+    color: blue;
+}

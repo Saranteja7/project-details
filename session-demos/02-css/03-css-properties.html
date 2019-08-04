@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+            p {
+                width: 50%;
+                padding: 20px 40px;
+                border: 1px dashed crimson;
+                margin: 50px;
+                background-color: lightgray;
+                text-decoration: underline;
+                font-size: 24px;
+                line-height: 1.5;
+            }
+
+            a { /* inline elements ignore width */
+                display: inline-block;
+                width: 50%;
+                font-family: Helvetica, Arial, sans-serif;
+                font-size: 1.25em;
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            #para-2 {
+                /*display: none;*/ /* space is not reserved */
+                visibility: hidden; /* spce is reserved */
+            }
+        </style>
+    </head>
+    <body>
+        <a href="#">Google</a>
+        <a href="#">Facebook</a>
+        <p>One</p>
+        <p>
+            1. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo nihil hic necessitatibus, porro aspernatur quasi nostrum soluta numquam dicta esse, error alias repellendus ea amet dignissimos, atque consequatur nisi sed!
+        </p>
+        <p id="para-2">
+            2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo nihil hic necessitatibus, porro aspernatur quasi nostrum soluta numquam dicta esse, error alias repellendus ea amet dignissimos, atque consequatur nisi sed!
+        </p>
+        <p>
+            3. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo nihil hic necessitatibus, porro aspernatur quasi nostrum soluta numquam dicta esse, error alias repellendus ea amet dignissimos, atque consequatur nisi sed!
+        </p>
+    </body>
+</html>

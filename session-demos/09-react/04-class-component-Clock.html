@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.development.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        
+        <script type="text/babel">
+            // const div = <div>Hello</div>;
+
+            // console.log( div );
+            
+            // div.props.children = "New child";
+            // div.type = 'span';
+
+            // console.log( div );
+
+            class Clock extends React.Component {
+                constructor( props ) {
+                    super( props );
+
+                    this.state = { // time-varying data is stored in this.state
+                        time: new Date()
+                    };
+                }
+
+                // Class component SHOULD have render() method
+                render() {
+                    return (
+                        <div>{this.state.time.toTimeString()}</div>
+                    );
+                }
+
+                // called after rendering for first time
+                componentDidMount() {
+                    setInterval(() => {
+                        this.setState({
+                            time: new Date()
+                        });
+                    }, 1000);
+                }
+            }
+            
+            ReactDOM.render( <Clock />, document.getElementById( 'root' ) );
+        </script>
+    </body>
+</html>

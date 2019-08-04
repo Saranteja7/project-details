@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        
+        <script type="text/babel">
+            // JSX - JavaScript XML - an extenion to the JavaScript language
+            // React element (similar to DOM node - it is like a simplified version of a DOM node)
+            const div = (
+                <footer>
+                    <div id="div-1" title="I am a div">
+                        This is a div
+                    </div>
+                </footer>
+            );
+            
+            // React.createElement( 
+            //     'div',
+            //     { id: 'div-1', title: 'I am a div' }, /* props object */
+            //     'This is a div'
+            // );
+            
+            const footer = React.createElement( 'footer', null, 'This app is built using react', 'One more line in footer', div );
+            
+            console.log( footer );
+            console.log( footer.props.children );
+
+            ReactDOM.render( footer, document.getElementById( 'root' ) );
+        </script>
+    </body>
+</html>

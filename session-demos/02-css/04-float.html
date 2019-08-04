@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+            .row > * {
+                width: 30%;
+                margin: 1em 5% 1em 0;
+                float: left;
+            }
+
+            .row > :nth-child(3n) {
+                margin-right: 0;
+            }
+
+            .clearfix::after { /* we set clearfix class on the parent of floated elements */
+                content: "";
+                clear: both;
+                display: table;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="row clearfix">
+            <div>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam tempora hic repellendus praesentium voluptatibus qui, ducimus neque natus quasi nihil! Unde aspernatur impedit dolor error laborum. Distinctio omnis soluta dolore?
+            </div>
+            <div>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore enim, aperiam ad ea quasi sed repudiandae minus placeat laudantium blanditiis nemo sunt architecto possimus ipsum excepturi atque optio et expedita.
+            </div>
+            <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum ab officia nihil doloribus consequuntur ex dolorum! Quaerat vitae dolores modi. Odio eos deserunt consequatur repudiandae velit explicabo reiciendis expedita doloribus.
+            </div>
+        </section>
+    </body>
+</html>
